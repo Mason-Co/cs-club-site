@@ -1,61 +1,148 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
+  const hunksGallery = [
+    { 
+        src: "/images/mason/Hunk_rocks.jpg", 
+        alt: "Nate from College Hunks" 
+    },
+  ];
+
+  const loungeGallery = [
+    {
+      src: "/images/mason/lounge_measure.png",
+      alt: "CAM Lounge Measurements"
+    },
+    {
+      src: "/images/mason/lounge_items.png",
+      alt: "CAM Lounge Items"
+    },
+  ];
+
+  // State for each gallery
+  const [hunksViewerOpen, setHunksViewerOpen] = useState(false);
+  const [loungeViewerOpen, setLoungeViewerOpen] = useState(false);
+
+  const [hunksActive, setHunksActive] = useState(0);
+  const [loungeActive, setLoungeActive] = useState(0);
+
   return (
     <div style={{ height: "auto" }}>
-      <h1 style={{ fontSize: "30px" }}>Mason Colacicco</h1>
+      <h1 className="text-4xl">Mason Colacicco</h1>
+      <p>
+        I am Mason Colacicco, a computer science major at <Link href="https://www.unwsp.edu/" target="_blank"><span className="text-blue-400 underline hover:text-blue-300">University of Northwestern - St. Paul</span></Link> (UNW). I am a first year at UNW, but a junior by credit. I plan to graduate Northwestern in the fall of 2026. I am also the TA for computer science professor Dr. James Smith. I have always had an interest in computers since I was young, starting with the dream of making my own videogames. I grew out of this dream, but I always had a talent for math and problem solving to keep computer science on my mind for college. 
+      </p>
+      <p className="pt-3 pb-4">
+        Outside of computer science I love to watch sports, sing in choir, play videogames, teach elementary lessons at church, and spend time with friends and family.
+      </p>
       <div className="project-flex">
         <div className="hunks">
-          <h2 style={{ fontSize: "25px" }}>College Hunks App</h2>
-          <h3 style={{ fontSize: "20px" }}>Problem</h3>
+          <h2 className="text-3xl pb-5">College Hunks App</h2>
+          <h3 className="text-2xl pb-2">Problem</h3>
           <p>
             I have worked at College Hunks Hauling Junk and Moving since the
             summer of 2024. This project started that fall of 2024 for Systems
             Analysis and Design class. I was working with a teammate, Andrew, to
             come up with a solution to a problem in the company. The problem
             presented by College Hunks was that their data input in Excel took
-            around 14 hours every 2 weeks. They use excel for everything to with
+            around 14 hours every 2 weeks. They use Excel for everything to do with
             data. In the same excel spreadsheet there are around 9 tabs that
             store data from from years and years ago to tabs that require a
             complex input of data from two sources to return an output for
             spreadsheet data storage. They wanted to stay with Excel, so my
             teammate and I thought of a solution to remove one of the uses of
-            Excel in the complex data input for calculation.
+            Excel in the steps involving complex data input for calculation.
           </p>
           <br></br>
-          <Image
-            src="/images/mason/Hunk_rocks.jpg"
-            alt="College Hunks"
-            className="rounded-lg shadow-md transition-transform duration-300 hover:scale-102"
+          <img
+            src={hunksGallery[0].src}
+            alt={hunksGallery[0].alt}
+            onClick={() => {
+                setHunksActive(0);
+                setHunksViewerOpen(true);
+            }}
+            className="hunk-image cursor-pointer rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
             width={700}
-            height={400}
           />
           <p className="pt-1 text-xs">
             This is an image of Nate from College Hunks. He is a Move Captain
             that Mason has worked with occasionally.
           </p>
           <br></br>
-          <h3>Solution</h3>
-          <p>The solution</p>
+          <h3 className="text-2xl">Solution</h3>
+          <p>The solution involves </p>
         </div>
         <div className="other">
-          <h2 style={{ fontSize: "25px" }}>Something Else</h2>
+          <h2 className="text-3xl pb-3">CAM Lounge Updates</h2>
+          <h3 className="text-2xl pb-2">Problem</h3>
           <p>
-            This is a test paragraph for the next project that I will be working
-            on. I am not too sure what it will be because most of my projects
-            have revolved around College Hunks and the rest of the stuff has
-            just been too small to talk about. I suppose I could talk about how
-            I have been the TA for Dr. Smith for the past year, which has been
-            not only a blessing in my life but also been a great learning
-            experience to get back into topics that I may have forgotten a
-            little bit about. It has helped me deepen my understanding of
-            fundemental topics and express my understanding of the topics
-            through supporting other&apos;s understanding as well.
+            The Computing, Analytics, and Mathematics (CAM) Lounge has been a space for students to sit around and connect with each other. It has minimal functionality or correlation with the computer science department when viewed from an outsider. Dr. Smith plans to update the room to represent the student projects completed and being worked on to show off the hard work of the students. He asked me to assist in this room upgrade through measuring the room to create a diagram of it. 
           </p>
+          <br></br>
+          <div className="lounge-pictures">
+            {loungeGallery.map((img, idx) => (
+                <img
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
+                onClick={() => {
+                    setLoungeActive(idx);
+                    setLoungeViewerOpen(true);
+                }}
+                className="hunk-image cursor-pointer rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
+                width={260}
+                />
+            ))}
+          </div>
         </div>
       </div>
+        {hunksViewerOpen && (
+        <div
+            onClick={() => setHunksViewerOpen(false)}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center gap-6 p-4"
+        >
+            <img
+            src={hunksGallery[hunksActive].src}
+            alt={hunksGallery[hunksActive].alt}
+            className="max-h-[80vh] max-w-[90vw] rounded-2xl shadow-lg shadow-white/20"
+            />
+        </div>
+        )}
+        {loungeViewerOpen && (
+        <div
+            onClick={() => setLoungeViewerOpen(false)}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center gap-6 p-4"
+        >
+            <img
+            src={loungeGallery[loungeActive].src}
+            alt={loungeGallery[loungeActive].alt}
+            className="max-h-[80vh] max-w-[90vw] rounded-2xl shadow-lg shadow-white/20"
+            />
+
+            <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex flex-wrap justify-center gap-4 max-w-[90vw] overflow-auto"
+            >
+            {loungeGallery.map((img, idx) => (
+                <img
+                key={img.src + idx}
+                src={img.src}
+                alt={img.alt}
+                onClick={() => setLoungeActive(idx)}
+                className={`h-20 w-28 object-cover rounded-lg cursor-pointer transition ${
+                    idx === loungeActive
+                    ? "ring-4 ring-white"
+                    : "opacity-60 hover:opacity-100"
+                }`}
+                />
+            ))}
+            </div>
+        </div>
+        )}
       <style jsx>
         {`
           .project-flex {
@@ -69,10 +156,12 @@ export default function Page() {
             max-width: 47%;
             min-width: 400px;
           }
-          .image-wrapper {
-            overflow: hidden;
-            padding: 10px 10px;
-          }
+          .lounge-pictures {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+           }
           @media (max-width: 768px) {
             .project-flex {
               flex: 1;
@@ -83,8 +172,8 @@ export default function Page() {
             .other {
               flex: 1;
               max-width: 100%;
-              padding-left: 25px;
-              padding-right: 25px;
+              padding-left: 10px;
+              padding-right: 10px;
             }
           }
         `}
