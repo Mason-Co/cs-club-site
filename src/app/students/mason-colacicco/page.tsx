@@ -29,9 +29,14 @@ export default function Page() {
   const [hunksActive, setHunksActive] = useState(0);
   const [loungeActive, setLoungeActive] = useState(0);
 
+  // 4xl for main title
+  // 3xl for sections (lounge and hunks)
+  // 2xl for subsections (problem and solution)
+  // xs for image descriptions
+
   return (
     <div style={{ height: "auto" }}>
-      <h1 className="text-4xl">Mason Colacicco</h1>
+      <h1 className="pb-3 text-4xl">Mason Colacicco</h1>
       <p>
         I am Mason Colacicco, a computer science major at{" "}
         <Link href="https://www.unwsp.edu/" target="_blank">
@@ -77,7 +82,7 @@ export default function Page() {
               setHunksActive(0);
               setHunksViewerOpen(true);
             }}
-            className="hunk-image cursor-pointer rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
+            className="cursor-pointer rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
             width={700}
           />
           <p className="pt-1 text-xs">
@@ -88,7 +93,7 @@ export default function Page() {
           <h3 className="text-2xl">Solution</h3>
           <p>The solution involves </p>
         </div>
-        <div className="other">
+        <div className="lounge">
           <h2 className="pb-3 text-3xl">CAM Lounge Updates</h2>
           <h3 className="pb-2 text-2xl">Problem</h3>
           <p>
@@ -103,7 +108,7 @@ export default function Page() {
           </p>
           <br></br>
           <div className="lounge-pictures">
-            {loungeGallery.map((img, idx) => (
+            {loungeGallery.slice(0, 2).map((img, idx) => (
               <img
                 key={img.src}
                 src={img.src}
@@ -112,11 +117,25 @@ export default function Page() {
                   setLoungeActive(idx);
                   setLoungeViewerOpen(true);
                 }}
-                className="hunk-image cursor-pointer rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
+                className="cursor-pointer rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
                 width={260}
               />
             ))}
           </div>
+          <p className="pt-1 text-xs">
+            Here are the diagrams of the CAM Lounge. One of which are the
+            measuremeants while the other has the current layout of the room.
+          </p>
+          <p className="pt-2">
+            The project needed more work to adjust for future furniture that
+            will be added,{" "}
+          </p>
+          <br></br>
+          <h3 className="pb-2 text-2xl">Solution</h3>
+          <p>
+            At the moment, the lounge is still being updated with future
+            diagrams in the making.
+          </p>
         </div>
       </div>
       {hunksViewerOpen && (
@@ -171,7 +190,7 @@ export default function Page() {
             width: 1150px;
           }
           .hunks,
-          .other {
+          .lounge {
             max-width: 47%;
             min-width: 400px;
           }
@@ -188,7 +207,7 @@ export default function Page() {
               max-width: 768px;
             }
             .hunks,
-            .other {
+            .lounge {
               flex: 1;
               max-width: 100%;
               padding-left: 10px;
